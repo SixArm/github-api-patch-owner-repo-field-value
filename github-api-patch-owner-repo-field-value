@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# github-api-patch-owner-repo-field-value
+#
+# Use the GitHub API (REST version) and `curl` shell command 
+# to modify a repo, specifically to patch one field to a value.
+#
+# Syntax:
+#
+#     github-api-patch-owner-repo-field-value <owner> <repo> <field> <value>
+#
+# Example to change the description:
+#
+#     github-api-patch-owner-repo-field-value myowner myrepo description "hello world"
+
+# sixarm-unix-shell-functions excerpts
+die() { >&2 printf %s\\n "$*" ; exit 1 ; }
+cmd() { command -v "$1" >/dev/null 2>&1 ; }
+var() { ! eval 'test -z ${'$1'+x}' ; }
+
+owner="$1"
+repo="$2"
+field="$3"
+value="$4"
+
+cmd curl || die "Command needed: curl"
+var GITHUB_ACCESS_TOKEN || die "Variable needed: GITHUB_ACCESS_TOKEN"
+
+curl \
+    --header "Accept: application/vnd.github.v3+json" \
+    --request PATCH \
+    "https://api.github.com/repos/$owner/$repo?access_token=$GITHUB_ACCESS_TOKEN" \
+    --data "{\"$field\":\"$value\"}"
