@@ -12,6 +12,15 @@
 # Example to change the description:
 #
 #     github-api-patch-owner-repo-field-value myowner myrepo description "hello world"
+#
+# Tracking:
+#
+#  * Program: github-api-patch-owner-repo-field-value
+#  * Contact: Joel Parker Henderson <joel@joelparkerhenderson.com>
+#  * Created: 2021-05-22T22:05:14Z
+#  * Updated: 2021-05-22T23:19:55Z
+#  * Contact: Joel Parker Henderson <joel@joelparkerhenderson.com>
+#  * License: GPL or MIT or BSD
 
 # sixarm-unix-shell-functions excerpts
 die() { >&2 printf %s\\n "$*" ; exit 1 ; }
