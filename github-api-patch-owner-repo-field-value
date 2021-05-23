@@ -16,9 +16,9 @@
 # Tracking:
 #
 #  * Program: github-api-patch-owner-repo-field-value
-#  * Contact: Joel Parker Henderson <joel@joelparkerhenderson.com>
+#  * Version: 1.0.1
 #  * Created: 2021-05-22T22:05:14Z
-#  * Updated: 2021-05-22T23:19:55Z
+#  * Updated: 2021-05-23T18:35:05Z
 #  * Contact: Joel Parker Henderson <joel@joelparkerhenderson.com>
 #  * License: GPL or MIT or BSD
 
@@ -37,6 +37,7 @@ var GITHUB_ACCESS_TOKEN || die "Variable needed: GITHUB_ACCESS_TOKEN"
 
 curl \
     --header "Accept: application/vnd.github.v3+json" \
+    --header "Authorization: token $GITHUB_ACCESS_TOKEN" \
     --request PATCH \
-    "https://api.github.com/repos/$owner/$repo?access_token=$GITHUB_ACCESS_TOKEN" \
+    "https://api.github.com/repos/$owner/$repo" \
     --data "{\"$field\":\"$value\"}"
