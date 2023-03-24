@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euf
 
 # github-api-patch-owner-repo-field-value
 #
@@ -16,24 +17,22 @@
 # Tracking:
 #
 #  * Program: github-api-patch-owner-repo-field-value
-#  * Version: 1.0.1
+#  * Version: 1.0.2
 #  * Created: 2021-05-22T22:05:14Z
-#  * Updated: 2021-05-23T18:35:05Z
+#  * Updated: 2023-03-24T18:48:21Z
+#  * License: GPL-2.0 or GPL-3.0 or contact us for more
 #  * Contact: Joel Parker Henderson <joel@joelparkerhenderson.com>
-#  * License: GPL or MIT or BSD
 
-# sixarm-unix-shell-functions excerpts
-die() { >&2 printf %s\\n "$*" ; exit 1 ; }
-cmd() { command -v "$1" >/dev/null 2>&1 ; }
-var() { ! eval 'test -z ${'$1'+x}' ; }
+# Include https://github.com/SixArm/posix-shell-script-kit
+. "$(dirname "$(readlink -f "$0")")/posix-shell-script-kit"
 
 owner="$1"
 repo="$2"
 field="$3"
 value="$4"
 
-cmd curl || die "Command needed: curl"
-var GITHUB_ACCESS_TOKEN || die "Variable needed: GITHUB_ACCESS_TOKEN"
+command_exists_or_die curl
+var_exists_or_die GITHUB_ACCESS_TOKEN
 
 curl \
     --header "Accept: application/vnd.github.v3+json" \
